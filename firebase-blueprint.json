@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "monitors": {
+      "title": "Monitor",
+      "description": "Configuração dos monitores de API e estados",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "url": { "type": "string" },
+        "intervalSeconds": { "type": "number" },
+        "method": { "type": "string" },
+        "chatWebhookKey": { "type": "string" },
+        "status": { "type": "string" },
+        "lastChecked": { "type": "string" },
+        "latencyMs": { "type": "number" },
+        "statusCode": { "type": "number" },
+        "consecutiveFailures": { "type": "number" },
+        "alertOnFailure": { "type": "boolean" },
+        "alertOnRecovery": { "type": "boolean" },
+        "active": { "type": "boolean" },
+        "expectedStatus": { "type": "number" },
+        "timeoutMs": { "type": "number" },
+        "headers": { "type": "object" },
+        "body": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "url", "intervalSeconds", "method", "active"]
+    },
+    "alertLogs": {
+      "title": "AlertLog",
+      "description": "Histórico de alertas enviados para o Google Chat / Meet",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "monitorId": { "type": "string" },
+        "monitorName": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "type": { "type": "string" },
+        "message": { "type": "string" },
+        "destination": { "type": "string" },
+        "success": { "type": "boolean" },
+        "httpStatus": { "type": "number" },
+        "errorDetails": { "type": "string" }
+      },
+      "required": ["id", "monitorId", "timestamp", "type", "message"]
+    }
+  },
+  "firestore": {
+    "/monitors/{monitorId}": {
+      "allow": {
+        "read": "true",
+        "create": "request.resource.data.keys().hasAll(['id', 'name', 'url', 'intervalSeconds', 'method'])",
+        "update": "true",
+        "delete": "true"
+      }
+    },
+    "/alertLogs/{logId}": {
+      "allow": {
+        "read": "true",
+        "create": "request.resource.data.keys().hasAll(['id', 'monitorId', 'timestamp', 'type'])",
+        "update": "true",
+        "delete": "true"
+      }
+    }
+  }
+}

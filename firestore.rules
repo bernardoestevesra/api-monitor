@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /monitors/{monitorId} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasAll(['id', 'name', 'url', 'intervalSeconds', 'method'])
+                    && request.resource.data.name is string
+                    && request.resource.data.url is string;
+      allow update: if true;
+      allow delete: if true;
+    }
+
+    match /alertLogs/{logId} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasAll(['id', 'monitorId', 'timestamp', 'type'])
+                    && request.resource.data.id is string;
+      allow update: if true;
+      allow delete: if true;
+    }
+  }
+}

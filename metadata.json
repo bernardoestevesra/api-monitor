@@ -1,0 +1,6 @@
+{
+  "name": "Monitor de APIs",
+  "description": "Sistema completo de monitoramento de APIs com intervalos em segundos, minutos ou horas e alertas automáticos via chave do Google Chat / Meet.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
